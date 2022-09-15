@@ -26,6 +26,6 @@ class HomeController extends Controller
     {
         $ins = new IncomingController();
         $outs = new OutgoingController();
-        return view('home', ['ins' => $ins->index(), 'outs' => $outs->index(), 'ins_total'=>$ins->IncomingsValue(),'outs_total'=>$outs-> OutgoingsValue()]);
+        return view('home', ['ins' => $ins->index(), 'outs' => $outs->index(), 'ins_total'=>$ins->IncomingsValue($ins->Incomings()),'outs_total'=>$outs-> OutgoingsValue($outs->Outgoings())]);
     }
 }

@@ -19,7 +19,7 @@
     height: 100vh;
     max-height: 100%;
     top: 0;
-
+z-index: 1;
 }
 
 .nav-pills .nav-link.active {
@@ -97,6 +97,9 @@
     padding-left: 15em;
     padding-top: 4em;
     padding-bottom: 4em;
+    contain: paint;
+
+
 
 }
 
@@ -118,27 +121,20 @@ a.link-dark::selection {
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .sidenav {
-        background-color: #5e84ce;
         width: 100vh;
         max-width: 100%;
-        position: fixed;
-        display: inline-table;
-        flex-wrap: nowrap;
         height: fit-content;
-        top: 0;
-        z-index: 1;
     }
 
     .content {
         padding-left: 0em;
         padding: 2em 0;
 
-
     }
 
 
     .logo {
-        margin-top: 25em;
+        margin-top: 6em;
         padding-left: 2em;
         color: #5e84ce;
     }
