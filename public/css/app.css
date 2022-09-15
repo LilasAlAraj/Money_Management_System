@@ -1,0 +1,38 @@
+body {
+    contain: paint;
+    /*this is instead of overflow-x: hidden; */
+}
+
+
+.navbar {
+    background-color: #5e84ce;
+}
+
+
+.nav-item {
+    border: #fff 1px solid;
+    border-radius: 10%;
+    margin-left: 10px;
+
+}
+
+.nav-item a {
+    color: #fff;
+}
+
+.nav-item a:hover {
+    color: #3a3a3a;
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .nav-item {
+        width: fit-content;
+        padding: 0 .5em;
+        margin-top: 1em;
+    }
+    .navbar {
+        padding-bottom: 1em;
+    }
+}

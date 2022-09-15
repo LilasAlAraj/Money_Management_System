@@ -1,0 +1,15 @@
+.navbar {
+    background-color: #0056ff;
+}
+
+
+.welcome {
+    border: #00297c 10px solid;
+    border-radius: 25%;
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px 0;
+    font-size: 25px;
+    color: #000;
+
+}

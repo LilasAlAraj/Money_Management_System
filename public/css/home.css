@@ -1,0 +1,10 @@
+
+.actions {
+    display: flex;
+
+    /*position: static;*/
+}
+
+.action {
+    margin-right: 1em;
+}
