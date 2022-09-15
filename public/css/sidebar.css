@@ -84,8 +84,9 @@ z-index: 1;
 
 .logo {
     padding-top: 2em;
-    padding-left: 17em;
+    padding-bottom: 1em;
     color: #5e84ce;
+
 }
 
 .hr {
@@ -134,8 +135,9 @@ a.link-dark::selection {
 
 
     .logo {
-        margin-top: 6em;
-        padding-left: 2em;
+        padding-top: 8em;
+
+        padding-left: 1em;
         color: #5e84ce;
     }
 

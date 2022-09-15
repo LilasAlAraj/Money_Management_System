@@ -1,34 +1,35 @@
 @extends('layouts.homes')
 @section('style')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/chart.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card.css') }}">
 @endsection
 @section('content-container')
 
-    @if( isset($_GET['month'])&& strlen($_GET['month'])==0)
+    @if( isset($_GET['year'])&& strlen($_GET['year'])==0)
         <div class="alert alert-danger">
             {{__('Ooops. you should choose month ')}}
         </div>
     @endif
 
     <div class="card">
-        <div class="card-header">{{ __('Monthly Dashborad') }}</div>
+        <div class="card-header">{{ __('Manually Dashborad') }}</div>
 
         <div class="card-body">
 
-            <form method="get" action="{{ route('monthly-dashboard') }}">
+            <form method="get" action="{{ route('manually-dashboard') }}">
 
 
                 <div class="row ">
 
-                    <div class="col-6 d-flex mb-3">
+                    <div class="col-6 d-flex  mb-3">
 
 
-                        <label for="month" class="col-form-label text-md-end " style="margin:0 2em">{{ __('month')}}
-                            : </label>
+                        <label for="year" class=" col-form-label text-md-end " style="margin:0 2em">{{ __('year')}}: </label>
 
-                        <input id="month" type="month"
-                               name="month" value="{{old('month')}}"
+                        <input type="number" min="1900" max="2099"
+                               name="year" value="{{$year}}"
                                style="width: fit-content">
                     </div>
 
@@ -46,7 +47,7 @@
         </div>
     </div>
 
-    @if( isset($_GET['month'])&& strlen($_GET['month'])>0)
+    @if( isset($_GET['year'])&& strlen($_GET['year'])>0)
 
         <div class="row d-flex">
             <div class="col-4">
@@ -94,71 +95,98 @@
 
             </div>
         </div>
+
         <div class="row  chart">
-            <div>
+            <div class="col-6">
                 <div class="col-12 ">
-                    <canvas id="myChart" title="Budget Chart"></canvas>
+                    <canvas id="outsChart" title="Outgoings Chart"></canvas>
                 </div>
                 <div class="col-12" style="font-size: smaller; font-weight: bolder">
-                    Monthly budget chart
+                    Monthly outgoings chart
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="col-12 ">
+                    <canvas id="insChart" title="Incomings Chart"></canvas>
+                </div>
+                <div class="col-12" style="font-size: smaller; font-weight: bolder">
+                    Monthly incomings chart
                 </div>
             </div>
 
         </div>
-
-
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-
-        <script>
-            var days = [], inValues = [], outValues = [];
-
-
-            @foreach($days as $day)
-                days[{{$loop->iteration}}] = ({{$day}});
-            @endforeach
-
-
-                @foreach($insByMonth as $ibm)
-                inValues[{{$loop->iteration}}] = ({{$ibm}});
-            @endforeach
-                @foreach($outsByMonth as $obm)
-                outValues[{{$loop->iteration}}] = ({{$obm}});
-            @endforeach
-
-
-            new Chart("myChart", {
-                type: "line",
-                title: {
-                    text: "Styling Legend Text"
-                },
-                data: {
-                    labels: days,
-                    datasets: [{
-                        data: inValues,
-                        borderColor: "green",
-                        fill: false,
-                        label: "Incomings"
-
-
-                    },
-                        {
-                            data: outValues,
-                            borderColor: "red",
-                            fill: false,
-                            label: "Outgoings"
-
-
-                        }
-                    ]
-                },
-                options: {
-                    legend: {display: true}
-                }
-            });
-
-
-        </script>
     @endif
+
+
+    <script type="text/javascript">
+        var inValues = [], outValues = [];
+        var months = ['January', 'February', 'March', 'April'
+            , 'May', 'June', 'July', 'August',
+            'September', 'October', 'November', 'December'];
+        var barColors = [
+            "#b91d47",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#1e7145",
+            "#b9ac1d",
+            "#ab0075",
+            "#7a0404",
+            "#550c57",
+            "#8d650f",
+            "#081031",
+            "#1fee80"
+        ];
+
+        var year = {{$year}};
+        console.log(year);
+
+        @foreach($insByMonth as $ibm)
+            inValues[{{$loop->iteration}} - 1] = ({{$ibm}});
+        @endforeach
+            @foreach($outsByMonth as $obm)
+            outValues[{{$loop->iteration}} - 1] = ({{$obm}});
+
+        @endforeach
+
+
+        new Chart("insChart", {
+            type: "doughnut",
+            data: {
+                labels: months,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: inValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "incomings of months while " + year
+                }
+            }
+        });
+
+
+        new Chart("outsChart", {
+            type: "doughnut",
+            data: {
+                labels: months,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: outValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: " outgoings of months while " + year
+                }
+            }
+        });
+
+
+    </script>
 
 @endsection

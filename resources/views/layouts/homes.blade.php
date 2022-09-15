@@ -1,12 +1,12 @@
 <!doctype html>
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1 height=device-height">
     <!-- CSRF Token -->
     {{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{str_replace( '_',' ',config('app.name', 'Laravel')) }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,17 +23,18 @@
 <body>
 
 <div class="d-flex flex-column flex-shrink-0 p-3 sidenav navbar-expand-md  ">
-   <div class="row">
-    <a href="/" class=" col-11 d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4 "> {{str_replace( '_',' ',config('app.name', 'Laravel')) }}</span>
+    <div class="row">
+        <a href="/" class=" col-11 d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4 "> {{str_replace( '_',' ',config('app.name', 'Laravel')) }}</span>
 
-    </a>
-    <button class="col-1 navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="{{ __('Toggle navigation') }}"
-    style="position:relative;bottom: 5px; right: 10px;">
-       <i class="fa fa-bars" aria-hidden="true"></i>
-    </button></div>
+        </a>
+        <button class="col-1 navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="{{ __('Toggle navigation') }}"
+                style="position:relative;bottom: 5px; right: 10px;">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+    </div>
     <hr>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -126,6 +127,8 @@
 
                                 <li><a href="{{ route('yearly-dashboard') }}" class="btn-link rounded">Yearly</a></li>
                                 <li><a href="{{ route('monthly-dashboard') }}" class="btn-link rounded">Monthly</a></li>
+                                <li><a href="{{ route('manually-dashboard') }}" class="btn-link rounded">Manually</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -138,7 +141,7 @@
                     <div class=" accordion dropdown">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="" width="32" height="32"
+                            <img src="{{asset('images/profile.png')}}" alt="profile image" width="32" height="32"
                                  class="rounded-circle me-2">
                             <strong>{{Auth::user()->name}}</strong>
                         </a>
@@ -167,15 +170,16 @@
 
     </div>
 </div>
-<div class="logo">
-    <h2>Manage your money</h2>
-    <hr class="hr">
-</div>
 <div class="container content">
 
+    <div class="logo">
+        <h2>Manage your money</h2>
+        <hr class="hr">
+    </div>
     @yield('content-container')
 
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">

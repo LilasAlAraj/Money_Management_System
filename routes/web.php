@@ -24,6 +24,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard/yearly',[App\Http\Controllers\DashboardController::class,'yearly'])->name('yearly-dashboard');
 Route::get('/dashboard/monthly',[App\Http\Controllers\DashboardController::class,'monthly'])->name('monthly-dashboard');
+Route::get('/dashboard/manually',[App\Http\Controllers\DashboardController::class,'manually'])->name('manually-dashboard');
 Route::get('/incoming/add', [App\Http\Controllers\IncomingController::class, 'create'])->name('incoming-add');
 Route::get('/outcoming/add', [App\Http\Controllers\OutgoingController::class, 'create'])->name('outgoing-add');
 Route::post('/incoming/edit', [App\Http\Controllers\IncomingController::class, 'edit'])->name('incoming-edit');

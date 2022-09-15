@@ -64,42 +64,92 @@ class DashboardController extends Controller
 
 
         if (!isset($_GET['month']) || strlen($_GET['month']) < 1) {
-            $ins =[];
-        $outs = [];
+            $ins = [];
+            $outs = [];
 
-        $inTotal = 0;
-        $outTotal =0;
+            $inTotal = 0;
+            $outTotal = 0;
 
-        $inValue = 0;
-        $outValue = 0;
+            $inValue = 0;
+            $outValue = 0;
 
-        $days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+            $days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
 
-        $insByMonth = [];
+            $insByMonth = [];
 
-        $outsByMonth = [];
+            $outsByMonth = [];
 
         } else {
             $ins = $incomingController->IncomingsByMonth($_GET['month']);
-        $outs = $outgoingController->OutgoingsByMonth($_GET['month']);
+            $outs = $outgoingController->OutgoingsByMonth($_GET['month']);
 
-        $inTotal = $ins->count();
-        $outTotal = $outs->count();
+            $inTotal = $ins->count();
+            $outTotal = $outs->count();
 
-        $inValue = $incomingController->IncomingsValue($ins);
-        $outValue = $outgoingController->OutgoingsValue($outs);
+            $inValue = $incomingController->IncomingsValue($ins);
+            $outValue = $outgoingController->OutgoingsValue($outs);
 
-        $days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+            $days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
 
-        $insByMonth = [];
-        foreach ($days as $day) {
-            $insByMonth[] = $incomingController->IncomingsValue($incomingController->IncomingsByDate($_GET['month'] . "-$day"));
+            $insByMonth = [];
+            foreach ($days as $day) {
+                $insByMonth[] = $incomingController->IncomingsValue($incomingController->IncomingsByDate($_GET['month'] . "-$day"));
+            }
+            $outsByMonth = [];
+            foreach ($days as $day) {
+                $outsByMonth[] = $outgoingController->OutgoingsValue($outgoingController->OutgoingsByDate($_GET['month'] . "-$day"));
+            }
         }
-        $outsByMonth = [];
-        foreach ($days as $day) {
-            $outsByMonth[] = $outgoingController->OutgoingsValue($outgoingController->OutgoingsByDate($_GET['month'] . "-$day"));
-        }
-}
         return view('Dashboard.monthlyDashboard', compact('inTotal', 'inValue', 'outTotal', 'outValue', 'days', 'outsByMonth', 'insByMonth'));
+    }
+
+
+    public function manually()
+    {
+        $incomingController = new IncomingController();
+        $outgoingController = new OutgoingController();
+
+        if (!isset($_GET['year']) || strlen($_GET['year']) < 1) {
+            $ins = [];
+            $outs = [];
+
+            $inTotal = 0;
+            $outTotal = 0;
+
+            $inValue = 0;
+            $outValue = 0;
+
+
+            $insByMonth = [];
+
+            $outsByMonth = [];
+            $year='';
+
+        } else {
+            $year =$_GET['year'];
+
+            $ins = $incomingController->IncomingsByYear($year);
+            $outs = $outgoingController->OutgoingsByYear($year);
+
+            $inTotal = $ins->count();
+            $outTotal = $outs->count();
+
+            $inValue = $incomingController->IncomingsValue($ins);
+            $outValue = $outgoingController->OutgoingsValue($outs);
+
+            $months = ['01', '02', '03', '04'
+                , '05', '06', '07', '08',
+                '09', '10', '11', '12'];
+            $insByMonth = [];
+            foreach ($months as $month) {
+                $insByMonth[] = $incomingController->IncomingsValue($incomingController->IncomingsByMonth($year . "-$month"));
+            }
+            $outsByMonth = [];
+            foreach ($months as $month) {
+                $outsByMonth[] = $outgoingController->OutgoingsValue($outgoingController->OutgoingsByMonth($year . "-$month"));
+            }
+        }
+
+        return view('Dashboard.manuallyDashboard', compact('inTotal', 'inValue', 'outTotal', 'outValue',  'outsByMonth', 'insByMonth','year'));
     }
 }
