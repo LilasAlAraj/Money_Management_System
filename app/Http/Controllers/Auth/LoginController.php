@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+
 
 class LoginController extends Controller
 {
@@ -37,4 +42,42 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
+
+    protected function validateLogin(Request $request)
+    {
+
+        $messages = [
+            "username.required" => "Username is required",
+            "username.exists" => "Wrong password or this account not approved yet.",
+            "password.required" => "Password is required",
+            "password.min" => "Password must be at least 8 characters"
+        ];
+        $table = $this->username();
+
+        $request->validate([
+            'username' => "required|exists:users,$table",
+            'password' => 'required|min:8'
+        ], $messages);
+    }
+
+    public function username()
+    {
+
+        $login = request()->input('username');
+        if (filter_var($login, FILTER_VALIDATE_EMAIL))
+            $field = 'email';
+        else
+            $field = 'phone_number';
+
+        return $field;
+    }
+
+    protected function credentials(Request $request)
+    {
+        return [$this->username()=>$request->username, 'password'=>$request->password];
+    }
+
+
 }

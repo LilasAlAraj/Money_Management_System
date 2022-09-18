@@ -30,52 +30,61 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade  show active" id="incomings-tab-pane" role="tabpanel" aria-labelledby="incomings-tab"
              tabindex="0">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>#.</th>
-                    <th>Value</th>
-                    <th>Details</th>
-                    <th>Ceated at</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($ins as $in)
-                    <tr>
+            <div style="margin-top: 2em">
+                @if(sizeof($ins)>0)
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>#.</th>
+                            <th>Value</th>
+                            <th>Details</th>
+                            <th>Ceated at</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($ins as $in)
+                            <tr>
 
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$in->value}}</td>
-                        <td>{{$in->details}}</td>
-                        <td>{{$in->date()}}</td>
-                        <td>
-                            <div class="actions">
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$in->value}}</td>
+                                <td>{{$in->details}}</td>
+                                <td>{{$in->date()}}</td>
+                                <td>
+                                    <div class="actions">
 
-                                <form method="POSt" action="{{Route('incoming-edit')}} ">
-                                    @csrf
-                                    {{--                                    {{method_field('delete')}}--}}
-                                    <input type="hidden" name="ID" value='{{$in->id}}'>
-                                    <button class="btn btn-primary btn-sm action">Edit
-                                    </button>
-                                </form>
-                                <form method="POSt" action="{{Route('incoming-delete')}} ">
-                                    @csrf
-                                    {{method_field('delete')}}
-                                    <input type="hidden" name="ID" value='{{$in->id}}'>
-                                    <button class="btn btn-danger btn-sm action"
-                                            onclick="return confirm(&quot;Confirm delete?&quot;)">Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
+                                        <form method="POSt" action="{{Route('incoming-edit')}} ">
+                                            @csrf
+                                            {{--                                    {{method_field('delete')}}--}}
+                                            <input type="hidden" name="ID" value='{{$in->id}}'>
+                                            <button class="btn btn-primary btn-sm action">Edit
+                                            </button>
+                                        </form>
+                                        <form method="POSt" action="{{Route('incoming-delete')}} ">
+                                            @csrf
+                                            {{method_field('delete')}}
+                                            <input type="hidden" name="ID" value='{{$in->id}}'>
+                                            <button class="btn btn-danger btn-sm action"
+                                                    onclick="return confirm(&quot;Confirm delete?&quot;)">Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
 
-            </table>
+                    </table>
+                @else
+                    <p> There is not any incomings yet
+                    </p>
+                @endif</div>
         </div>
         <div class="tab-pane fade" id="outgoings-tab-pane" role="tabpanel" aria-labelledby="outgoings-tab"
              tabindex="0">
+            <div style="margin-top: 2em">
+                @if(sizeof($outs)>0)
+
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -117,7 +126,10 @@
                     </tr>
                 @endforeach
                 </tbody>
-            </table>
+            </table>@else
+                    <p> There is not any outgoings yet
+                    </p>
+                @endif</div>
         </div>
     </div>
 @endsection

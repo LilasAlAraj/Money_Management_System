@@ -6,6 +6,7 @@ body {
 
 .navbar {
     background-color: #5e84ce;
+    margin-bottom: 5em;
 }
 
 
@@ -15,7 +16,6 @@ body {
     margin-left: 10px;
 
 }
-
 .nav-item a {
     color: #fff;
 }
