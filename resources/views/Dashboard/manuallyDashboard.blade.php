@@ -97,7 +97,7 @@
         </div>
 
         <div class="row  chart">
-            <div class="col-6">
+            <div class="col-lg-6 col-sm-12 col-md-6">
                 <div class="col-12 ">
                     <canvas id="outsChart" title="Outgoings Chart"></canvas>
                 </div>
@@ -106,7 +106,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-lg-6 col-sm-12 col-md-6">
                 <div class="col-12 ">
                     <canvas id="insChart" title="Incomings Chart"></canvas>
                 </div>

@@ -8,3 +8,23 @@
 .action {
     margin-right: 1em;
 }
+
+
+.page-item.active .page-link{
+    background-color: #5e84ce;
+    border-color: #5e84ce;
+}
+
+
+.page-item .page-link{
+    font-size: larger;
+}
+.page-item:not(.active) .page-link{
+   color: #5e84ce;
+    /*border-color: #5e84ce;*/
+}
+
+
+#myTab{
+    width: fit-content;
+}

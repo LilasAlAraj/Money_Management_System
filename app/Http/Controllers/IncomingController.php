@@ -74,7 +74,10 @@ class IncomingController extends Controller
      */
     public function index()
     {
-        return (Incoming::all()->where('user_id', Auth::id())->sortby('created_at'));//asc
+//        if (((Incoming::where('user_id', Auth::id()))->count()) < 10)
+//            return Incoming::all()->where('user_id', Auth::id())->sortBy('created_at');
+
+        return Incoming::where('user_id', Auth::id())->orderBy('created_at')->paginate(10);;//asc
         //  ->sortbydesc('created_at');
 
     }

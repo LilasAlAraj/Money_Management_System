@@ -73,8 +73,9 @@ class OutgoingController extends Controller
      */
     public function index()
     {
-        return Outgoing::all()->where('user_id', Auth::id())->sortby('created_at');//asc
-        //  ->sortbydesc('created_at');
+//        if(((Outgoing::where('user_id', Auth::id()))->count())<10)
+//            return Outgoing::all()->where('user_id', Auth::id())->sortBy('created_at');
+        return Outgoing::where('user_id', Auth::id())->orderBy('created_at')->paginate(10);;//asc
 
     }
 

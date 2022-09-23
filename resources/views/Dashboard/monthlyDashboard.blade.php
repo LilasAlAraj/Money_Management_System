@@ -2,6 +2,9 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/chart.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 @endsection
 @section('content-container')
 
@@ -107,23 +110,22 @@
         </div>
 
 
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
-        <script>
+        <script type="text/javascript">
             var days = [], inValues = [], outValues = [];
 
 
             @foreach($days as $day)
-                days[{{$loop->iteration}}] = ({{$day}});
+                days[{{$loop->iteration}} - 1] = ({{$day}});
             @endforeach
 
 
                 @foreach($insByMonth as $ibm)
-                inValues[{{$loop->iteration}}] = ({{$ibm}});
+                inValues[{{$loop->iteration}} - 1] = ({{$ibm}});
             @endforeach
                 @foreach($outsByMonth as $obm)
-                outValues[{{$loop->iteration}}] = ({{$obm}});
+                outValues[{{$loop->iteration}} - 1] = ({{$obm}});
             @endforeach
 
 
@@ -139,8 +141,6 @@
                         borderColor: "green",
                         fill: false,
                         label: "Incomings"
-
-
                     },
                         {
                             data: outValues,
@@ -153,6 +153,7 @@
                     ]
                 },
                 options: {
+
                     legend: {display: true}
                 }
             });

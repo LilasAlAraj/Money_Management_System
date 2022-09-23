@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,15 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        //
-//        if ($this->app->isLocal()) {
-////if local register your services you require for development
-////            $this->app['request']->server->set('HTTPS', false);
-//
-//        } else {
-////else register your services you require for production
-//            $this->app['request']->server->set('HTTPS', true);
-//        }
     }
 
     /**
@@ -32,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 //       \Illuminate\Support\Facades\URL::forceScheme('https');
+
+        Paginator::useBootstrap();
 
     }
 }
